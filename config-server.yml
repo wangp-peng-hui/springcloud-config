@@ -1,0 +1,23 @@
+﻿server:
+  port: 3344
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/wangp-peng-hui/springcloud-config.git #github上面的git仓库名字
+          username: wangp-peng-hui
+          password: wph44627713
+
+eureka:
+  client:
+    reigster-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7001.com:7001/eureka/
+
+
+

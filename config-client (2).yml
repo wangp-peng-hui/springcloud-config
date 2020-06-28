@@ -1,0 +1,39 @@
+﻿server:
+  port: 3355
+
+spring:
+  application:
+    name: config-client
+
+
+
+
+
+spring:
+  cloud:
+    config:
+      name: config-client   #和配置文件名一致，不带yml后缀名
+      profile: dev
+      label: master
+      uri: http://config.com:3344
+#      discovery:
+#        enabled: true
+#        serviceId: config-server
+#      fail-fast: true #是否启动快速失败功能，功能开启则优先判断config server是否正常
+
+eureka:
+  client:
+    reigster-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7001.com:7001/eureka/
+
+
+
+
+
+
+
+
+
+

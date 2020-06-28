@@ -1,0 +1,17 @@
+﻿server:
+  port: 8001
+
+spring:
+  application:
+    name: yang
+
+eureka:
+  client:
+    service-url:
+      #      defaultZone: http://eureka7001.com:7001/eureka/  # 单机  将微服务注册进eureka
+      defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7001.com:7001/eureka/  #  集群 将微服务注册进eureka
+  instance:
+    instance-id: yang-8001  # eureka 列表展示的微服务的实例名字
+    prefer-ip-address: true # 显示IP地址
+  server:
+    enable-self-preservation: true #eureka 自我保护机制
