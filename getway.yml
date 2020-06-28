@@ -1,0 +1,48 @@
+﻿#server:
+#  port: 9527
+#
+#spring:
+#  application:
+#    name: getway
+
+
+
+eureka:
+  client:
+    service-url:
+      #      defaultZone: http://eureka7001.com:7001/eureka/  # 单机  将微服务注册进eureka
+      defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7001.com:7001/eureka/  #  集群 将微服务注册进eureka
+  instance:
+    instance-id: getway-9527  # eureka 列表展示的微服务的实例名字
+    prefer-ip-address: true # 显示IP地址
+  server:
+    enable-self-preservation: true #eureka 自我保护机制
+
+zuul:
+  prefix: /api   #路径前缀
+  #  ignored-services: yang,yang-consumer  # 不能通过微服务名访问，只能通过path路径访问
+  ignored-services: "*"   # 忽略所有的微服务名字，不能通过微服务名字访问
+  routes:
+    wph.serviceId: yang-consumer  # 客户端 微服务的名字
+    wph.path: /yyn/**    # 支持多级目录
+    yyn.serviceId: yang   # 服务端 微服务的名字
+    yyn.path: /yang/**
+#    yyn.serviceId: yang
+#    yyn.path: /yang/**
+
+
+# 由于网关内部是通过ribbon来进行服务负载，所有需要配置ribbon
+# 设置网关请求超时时间  单位毫秒数
+ribbon:
+  ReadTimeout: 5000  # 全局配置负载均衡超时设置
+  ConnectTimeout: 5000 # 全局配置负载均衡读超时设置
+
+# 断路器超时时间  单位毫秒数
+#  开启熔断机制，超过10秒即开启熔断机制，网关内的时间排序：zuul的通信时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
